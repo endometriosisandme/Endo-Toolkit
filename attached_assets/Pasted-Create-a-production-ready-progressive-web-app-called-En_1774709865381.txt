@@ -1,0 +1,235 @@
+Create a production-ready progressive web app called “Endometriosis Toolkit.”
+
+Tech stack:
+
+- Next.js 14 with App Router  
+- TypeScript  
+- Tailwind CSS  
+- Supabase for database and authentication  
+- Recharts for charts  
+- Deployable to Vercel  
+
+The app must be mobile-first and behave like a progressive web app (PWA) so users can install it on their phone from the browser.
+
+---
+
+APP PURPOSE
+
+The Endometriosis Toolkit helps users track pain, symptoms, medications, and generate reports for doctors.
+
+Focus on a clean, calming health-app design with soft colors, clear typography, and simple navigation.
+
+---
+
+AUTHENTICATION
+
+Use Supabase authentication.
+
+Features:
+- Email signup
+- Email login
+- Persistent login session
+- Each user only sees their own data
+
+---
+
+DATABASE SCHEMA (Supabase)
+
+Create these tables with relations to the authenticated user.
+
+users
+- id (uuid)
+- email
+- created_at
+
+pain_logs
+- id (uuid)
+- user_id (uuid)
+- date (date)
+- pain_score (integer 1–10)
+- pain_location (text)
+- pain_type (text)
+- notes (text)
+- created_at
+
+symptom_logs
+- id (uuid)
+- user_id (uuid)
+- date (date)
+- symptom_type (text)
+- severity (integer 1–10)
+- triggers (text)
+- notes (text)
+- created_at
+
+medication_logs
+- id (uuid)
+- user_id (uuid)
+- medication_name (text)
+- dose (text)
+- time_taken (timestamp)
+- relief_level (integer 1–10)
+- side_effects (text)
+- created_at
+
+---
+
+NAVIGATION
+
+Mobile bottom navigation bar with icons:
+
+Home  
+Pain  
+Symptoms  
+Medications  
+Reports  
+
+Navigation must be optimized for mobile screens.
+
+---
+
+DASHBOARD (HOME SCREEN)
+
+Show a summary:
+
+Today's pain score  
+Symptoms logged today  
+Medications taken today  
+
+Also show quick buttons:
+
+Log Pain  
+Log Symptom  
+Log Medication  
+
+Include a pain chart showing the last 30 days.
+
+---
+
+PAIN TRACKER
+
+Users can log:
+
+Date  
+Pain score (1–10 slider)  
+Pain location (pelvis, back, abdomen, legs, other)  
+Pain type (cramping, stabbing, burning, dull)  
+Notes  
+
+Display:
+
+- line chart of pain over time
+- list of recent entries
+
+---
+
+SYMPTOM TRACKER
+
+Users log:
+
+Date  
+Symptom type  
+Severity (1–10)  
+Possible triggers  
+Notes  
+
+Include common symptoms:
+
+fatigue  
+nausea  
+bloating  
+pelvic pain  
+back pain  
+
+Display symptom frequency summary.
+
+---
+
+MEDICATION TRACKER
+
+Users log:
+
+Medication name  
+Dose  
+Time taken  
+Relief level (1–10)  
+Side effects  
+
+Display a list of recent medication logs.
+
+---
+
+DOCTOR REPORT GENERATOR
+
+Create a report summarizing the past 30 days.
+
+Include:
+
+Average pain score  
+Most frequent symptoms  
+Medication usage  
+Symptom severity trends  
+
+Allow the user to:
+
+- export the report to a printable page
+- generate a simple PDF-style report view
+
+---
+
+DATA VISUALIZATION
+
+Use Recharts to show:
+
+Pain trend line chart  
+Symptom frequency chart  
+
+Charts must be simple and mobile friendly.
+
+---
+
+UI DESIGN
+
+Clean health-focused design:
+
+soft neutral colors  
+rounded cards  
+clear typography  
+large buttons for mobile  
+
+Use Tailwind CSS components.
+
+---
+
+PWA SUPPORT
+
+Add progressive web app capability:
+
+- installable on phone
+- service worker
+- app manifest
+- offline-ready UI shell
+
+---
+
+ENVIRONMENT VARIABLES
+
+Configure for Vercel deployment.
+
+Required variables:
+
+NEXT_PUBLIC_SUPABASE_URL  
+NEXT_PUBLIC_SUPABASE_ANON_KEY  
+
+---
+
+FINAL REQUIREMENTS
+
+The app must:
+
+- run locally with npm install and npm run dev
+- connect to Supabase
+- deploy to Vercel
+- work smoothly on phones
+
+Generate the full project structure and all necessary files.

@@ -1,0 +1,31 @@
+kind = "web"
+previewPath = "/"
+title = "Endometriosis Toolkit"
+version = "1.0.0"
+id = "artifacts/endo-toolkit"
+router = "path"
+
+[[integratedSkills]]
+name = "react-vite"
+version = "1.0.0"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 20459
+
+[services.development]
+run = "pnpm --filter @workspace/endo-toolkit run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/endo-toolkit", "run", "build" ]
+publicDir = "artifacts/endo-toolkit/dist/public"
+serve = "static"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "20459"
+BASE_PATH = "/"

@@ -1,22 +1,30 @@
 openapi: 3.1.0
 info:
-  # Do not change the title, if the title changes, the import paths will be broken
   title: Api
   version: 0.1.0
-  description: API specification
+  description: Endometriosis Toolkit API
 servers:
   - url: /api
     description: Base API path
 tags:
   - name: health
     description: Health operations
+  - name: auth
+    description: Authentication
+  - name: pain
+    description: Pain logging
+  - name: symptoms
+    description: Symptom logging
+  - name: medications
+    description: Medication logging
+  - name: reports
+    description: Doctor reports
 paths:
   /healthz:
     get:
       operationId: healthCheck
       tags: [health]
       summary: Health check
-      description: Returns server health status
       responses:
         "200":
           description: Healthy
@@ -24,6 +32,212 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/HealthStatus"
+
+  /auth/user:
+    get:
+      operationId: getCurrentAuthUser
+      tags: [auth]
+      summary: Get current user
+      responses:
+        "200":
+          description: Current auth state
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/GetCurrentAuthUserResponse"
+
+  /pain-logs:
+    get:
+      operationId: getPainLogs
+      tags: [pain]
+      summary: List pain logs
+      responses:
+        "200":
+          description: List of pain logs
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/PainLog"
+        "401":
+          description: Unauthorized
+    post:
+      operationId: createPainLog
+      tags: [pain]
+      summary: Create a pain log
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreatePainLogBody"
+      responses:
+        "201":
+          description: Created pain log
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PainLog"
+        "401":
+          description: Unauthorized
+
+  /pain-logs/{id}:
+    delete:
+      operationId: deletePainLog
+      tags: [pain]
+      summary: Delete a pain log
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Deleted
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/DeleteResponse"
+        "401":
+          description: Unauthorized
+        "404":
+          description: Not found
+
+  /symptom-logs:
+    get:
+      operationId: getSymptomLogs
+      tags: [symptoms]
+      summary: List symptom logs
+      responses:
+        "200":
+          description: List of symptom logs
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/SymptomLog"
+        "401":
+          description: Unauthorized
+    post:
+      operationId: createSymptomLog
+      tags: [symptoms]
+      summary: Create a symptom log
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateSymptomLogBody"
+      responses:
+        "201":
+          description: Created symptom log
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SymptomLog"
+        "401":
+          description: Unauthorized
+
+  /symptom-logs/{id}:
+    delete:
+      operationId: deleteSymptomLog
+      tags: [symptoms]
+      summary: Delete a symptom log
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Deleted
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/DeleteResponse"
+        "401":
+          description: Unauthorized
+        "404":
+          description: Not found
+
+  /medication-logs:
+    get:
+      operationId: getMedicationLogs
+      tags: [medications]
+      summary: List medication logs
+      responses:
+        "200":
+          description: List of medication logs
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/MedicationLog"
+        "401":
+          description: Unauthorized
+    post:
+      operationId: createMedicationLog
+      tags: [medications]
+      summary: Create a medication log
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateMedicationLogBody"
+      responses:
+        "201":
+          description: Created medication log
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/MedicationLog"
+        "401":
+          description: Unauthorized
+
+  /medication-logs/{id}:
+    delete:
+      operationId: deleteMedicationLog
+      tags: [medications]
+      summary: Delete a medication log
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Deleted
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/DeleteResponse"
+        "401":
+          description: Unauthorized
+        "404":
+          description: Not found
+
+  /reports/summary:
+    get:
+      operationId: getReportSummary
+      tags: [reports]
+      summary: Get 30-day summary report
+      responses:
+        "200":
+          description: Summary report
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ReportSummary"
+        "401":
+          description: Unauthorized
+
 components:
   schemas:
     HealthStatus:
@@ -34,3 +248,245 @@ components:
       required:
         - status
 
+    GetCurrentAuthUserResponse:
+      type: object
+      properties:
+        isAuthenticated:
+          type: boolean
+        user:
+          oneOf:
+            - $ref: "#/components/schemas/AuthUser"
+            - type: "null"
+      required:
+        - isAuthenticated
+
+    AuthUser:
+      type: object
+      properties:
+        id:
+          type: string
+        username:
+          type: ["string", "null"]
+        firstName:
+          type: ["string", "null"]
+        lastName:
+          type: ["string", "null"]
+        profileImageUrl:
+          type: ["string", "null"]
+      required:
+        - id
+
+    PainLog:
+      type: object
+      properties:
+        id:
+          type: string
+        userId:
+          type: string
+        date:
+          type: string
+        painScore:
+          type: integer
+        painLocation:
+          type: string
+        painType:
+          type: string
+        notes:
+          type: ["string", "null"]
+        createdAt:
+          type: string
+      required:
+        - id
+        - userId
+        - date
+        - painScore
+        - painLocation
+        - painType
+        - createdAt
+
+    CreatePainLogBody:
+      type: object
+      properties:
+        date:
+          type: string
+        painScore:
+          type: integer
+        painLocation:
+          type: string
+        painType:
+          type: string
+        notes:
+          type: ["string", "null"]
+      required:
+        - date
+        - painScore
+        - painLocation
+        - painType
+
+    SymptomLog:
+      type: object
+      properties:
+        id:
+          type: string
+        userId:
+          type: string
+        date:
+          type: string
+        symptomType:
+          type: string
+        severity:
+          type: integer
+        triggers:
+          type: ["string", "null"]
+        notes:
+          type: ["string", "null"]
+        createdAt:
+          type: string
+      required:
+        - id
+        - userId
+        - date
+        - symptomType
+        - severity
+        - createdAt
+
+    CreateSymptomLogBody:
+      type: object
+      properties:
+        date:
+          type: string
+        symptomType:
+          type: string
+        severity:
+          type: integer
+        triggers:
+          type: ["string", "null"]
+        notes:
+          type: ["string", "null"]
+      required:
+        - date
+        - symptomType
+        - severity
+
+    MedicationLog:
+      type: object
+      properties:
+        id:
+          type: string
+        userId:
+          type: string
+        medicationName:
+          type: string
+        dose:
+          type: string
+        timeTaken:
+          type: string
+        reliefLevel:
+          type: integer
+        sideEffects:
+          type: ["string", "null"]
+        createdAt:
+          type: string
+      required:
+        - id
+        - userId
+        - medicationName
+        - dose
+        - timeTaken
+        - reliefLevel
+        - createdAt
+
+    CreateMedicationLogBody:
+      type: object
+      properties:
+        medicationName:
+          type: string
+        dose:
+          type: string
+        timeTaken:
+          type: string
+        reliefLevel:
+          type: integer
+        sideEffects:
+          type: ["string", "null"]
+      required:
+        - medicationName
+        - dose
+        - timeTaken
+        - reliefLevel
+
+    ReportSummary:
+      type: object
+      properties:
+        averagePainScore:
+          type: ["number", "null"]
+        totalPainLogs:
+          type: integer
+        totalSymptomLogs:
+          type: integer
+        totalMedicationLogs:
+          type: integer
+        mostFrequentSymptoms:
+          type: array
+          items:
+            $ref: "#/components/schemas/SymptomFrequency"
+        painTrend:
+          type: array
+          items:
+            $ref: "#/components/schemas/PainTrendPoint"
+        medicationUsage:
+          type: array
+          items:
+            $ref: "#/components/schemas/MedicationUsage"
+      required:
+        - averagePainScore
+        - totalPainLogs
+        - totalSymptomLogs
+        - totalMedicationLogs
+        - mostFrequentSymptoms
+        - painTrend
+        - medicationUsage
+
+    SymptomFrequency:
+      type: object
+      properties:
+        symptomType:
+          type: string
+        count:
+          type: integer
+      required:
+        - symptomType
+        - count
+
+    PainTrendPoint:
+      type: object
+      properties:
+        date:
+          type: string
+        painScore:
+          type: integer
+      required:
+        - date
+        - painScore
+
+    MedicationUsage:
+      type: object
+      properties:
+        medicationName:
+          type: string
+        count:
+          type: integer
+        averageRelief:
+          type: number
+      required:
+        - medicationName
+        - count
+        - averageRelief
+
+    DeleteResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+      required:
+        - success

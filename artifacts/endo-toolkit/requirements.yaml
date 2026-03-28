@@ -1,0 +1,15 @@
+packages:
+  "recharts": "For rendering beautiful pain and symptom trend charts"
+  "date-fns": "For formatting and parsing dates cleanly"
+  "clsx": "Utility for constructing className strings conditionally"
+  "tailwind-merge": "Utility for merging tailwind classes without style conflicts"
+  "lucide-react": "Beautiful consistent icons for the application"
+
+images:
+  - path: "artifacts/endo-toolkit/public/images/auth-hero.png"
+    description: "Soft, calming, abstract watercolor gradient in pastel lavender, warm peach, and cream colors. Very gentle and supportive vibe."
+    aspect_ratio: "16:9"
+
+notes:
+  - Using generated API hooks directly from @workspace/api-client-react as per monorepo structure
+  - Using @workspace/replit-auth-web for authentication state and redirects
