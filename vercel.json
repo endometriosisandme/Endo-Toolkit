@@ -1,16 +1,15 @@
 {
   "version": 2,
-  "outputDirectory": "artifacts/api-server/dist",
   "builds": [
     {
-      "src": "api/index.mjs",
+      "src": "artifacts/api-server/src/index.ts", 
       "use": "@vercel/node"
     }
   ],
-"routes": [
+  "routes": [
     {
       "src": "/api/(.*)",
-      "dest": "/index.mjs" 
+      "dest": "artifacts/api-server/src/index.ts"
     }
   ]
 }
