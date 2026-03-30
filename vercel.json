@@ -1,8 +1,10 @@
 {
   "builds": [
     {
-      "src": "artifacts/api-server/dist/index.mjs",
-      "use": "@vercel/node"
+  {
+  "src": "/api/(.*)",
+  "dest": "/artifacts/api-server/dist/index.mjs?path=$1"
+}
     }
   ],
   "routes": [
