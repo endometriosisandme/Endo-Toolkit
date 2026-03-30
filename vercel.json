@@ -2,10 +2,10 @@
   "version": 2,
   "builds": [
     {
-      "src": "artifacts/api-server/src/index.ts", 
+      "src": "artifacts/api-server/src/index.ts",
       "use": "@vercel/node"
     }
-  ],
+  ],  <-- THIS COMMA WAS MISSING
   "routes": [
     {
       "src": "/api/(.*)",
