@@ -1,0 +1,1 @@
+{\n  "endpoints": [\n    {\n      "path": "/api",\n      "handler": "path/to/api/index.js"\n    }\n  ]\n}
