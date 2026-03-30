@@ -1,5 +1,14 @@
-git pull
-# Edit vercel.json with the content above
-git add vercel.json
-git commit -m "Update vercel.json with correct API routing"
-git push
+{
+  "builds": [
+    {
+      "src": "artifacts/api-server/dist/index.mjs",
+      "use": "@vercel/node"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/api/(.*)",
+      "dest": "artifacts/api-server/dist/index.mjs"
+    }
+  ]
+}
