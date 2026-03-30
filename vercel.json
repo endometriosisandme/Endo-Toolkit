@@ -9,4 +9,4 @@
     {
       "src": "/api/(.*)",
       "dest": "artifacts/api-server/dist/index.mjs"
-    }
+    
