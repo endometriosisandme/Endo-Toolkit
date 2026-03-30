@@ -1,4 +1,6 @@
 {
+  "version": 2,
+  "outputDirectory": "artifacts/api-server/dist",
   "builds": [
     {
       "src": "api/index.mjs",
@@ -8,7 +10,7 @@
   "routes": [
     {
       "src": "/api/(.*)",
-      "dest": "/api/index.mjs"
+      "dest": "api/index.mjs"
     }
   ]
 }
