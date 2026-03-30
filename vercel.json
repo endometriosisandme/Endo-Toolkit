@@ -1,5 +1,6 @@
 {
   "version": 2,
+  "outputDirectory": "artifacts/api-server/dist",
   "builds": [
     {
       "src": "artifacts/api-server/dist/index.mjs",
