@@ -7,7 +7,6 @@
     "dev": "export NODE_ENV=development && pnpm run build && pnpm run start",
     "build": "vite build",
     "start": "vite preview",
-    "build:custom": "node ./build.mjs",
     "typecheck": "tsc -p tsconfig.json --noEmit"
   },
   "dependencies": {
