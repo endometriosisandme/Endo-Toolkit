@@ -3,14 +3,14 @@
   "installCommand": "pnpm install",
   "builds": [
     {
-      "src": "artifacts/api-server/src/index.ts",
+      "src": "artifacts/api-server/index.ts",
       "use": "@vercel/node"
     }
   ],
   "routes": [
     {
       "src": "/(.*)",
-      "dest": "artifacts/api-server/src/index.ts"
+      "dest": "artifacts/api-server/index.ts"
     }
   ]
 }
