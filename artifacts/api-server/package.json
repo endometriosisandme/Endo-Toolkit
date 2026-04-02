@@ -5,8 +5,8 @@
   "type": "module",
   "scripts": {
     "dev": "export NODE_ENV=development && pnpm run build && pnpm run start",
-    "build": "vite build",
-    "start": "vite preview",
+    "build": "node build.mjs",
+    "start": "node dist/server.mjs",
     "typecheck": "tsc -p tsconfig.json --noEmit"
   },
   "dependencies": {
