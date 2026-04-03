@@ -1,5 +1,5 @@
 {
   "name": "endo-toolkit",
   "private": true,
-  "packageManager": "pnpm@9.15.4"
+  "packageManager": "pnpm@10.6.5"
 }
