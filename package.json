@@ -1,5 +1,9 @@
 {
   "name": "endo-toolkit",
   "private": true,
-  "packageManager": "pnpm@10.6.5"
+  "packageManager": "pnpm@10.6.5",
+  "devDependencies": {
+    "prettier": "^3.8.1",
+    "typescript": "~5.9.2"
+  }
 }
